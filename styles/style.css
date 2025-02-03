@@ -1,0 +1,122 @@
+/* FIXME change font sizes from px to rem */
+
+@font-face {
+  font-family: Nunito;
+  src: url(../fonts/Nunito-VariableFont_wght.ttf);
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --deactive-color: rgb(189, 122, 147);
+  --active-color: rgb(220, 174, 185);
+  --pink: #c7365f;
+  --light-black: #333333;
+  --light-white: rgba(249, 242, 244, 0.781);
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: Nunito;
+}
+body {
+  background: linear-gradient(308deg, #6c2c61, #bc2e36);
+  display: grid;
+  place-items: center;
+}
+.game_container {
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 1px 1px 30px 20px rgb(0, 0, 0, 0.1);
+  position: relative;
+}
+.player {
+  width: 500px;
+  height: 600px;
+  text-transform: uppercase;
+  padding: 90px 143px;
+  text-align: center;
+  backdrop-filter: blur(20px);
+  /* transition: all 0.2s ease; */
+}
+.player1 {
+  background-color: var(--active-color);
+}
+.player2 {
+  background-color: var(--deactive-color);
+}
+.player__name {
+  font-weight: bold;
+  font-size: 40px;
+  color: var(--light-black);
+}
+.player__total-score {
+  color: var(--pink);
+  font-size: 80px;
+}
+.player__current-score {
+  font-size: 17px;
+  width: 208px;
+  height: 121px;
+  background-color: var(--pink);
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  margin-top: 119px;
+}
+.player__score--number {
+  font-size: 35px;
+}
+
+.buttons-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.btn {
+  background-color: var(--light-white);
+  border-radius: 90px;
+  padding: 20px 35px;
+  font-size: 18px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(20px);
+  display: flex;
+  justify-content: center;
+  font-weight: 300;
+  user-select: none;
+}
+.btn:active {
+  transform: translateY(2px) scale(0.99);
+}
+
+.roll-btn {
+  margin-top: 130px;
+}
+.hold-btn {
+  margin-top: 20px;
+}
+
+.dice-img {
+  max-width: 100px;
+  max-height: 100px;
+  margin-top: 100px;
+}
+
+.u-hidden {
+  visibility: hidden;
+  opacity: 0;
+}
