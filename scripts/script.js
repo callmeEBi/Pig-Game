@@ -1,5 +1,6 @@
 //FIXME - fixing the shallow copy problem and gathering all the players in one object
 // FIXME - put for loop in newGame function
+// FIXME - a lot of dirty code, clean it
 
 "use strict";
 let $ = document;
@@ -9,6 +10,10 @@ let diceImg = $.querySelector(".dice-img");
 let btnNewGame = $.querySelector(".new-game-btn");
 let cardPlayer1 = $.querySelector(".player1");
 let cardPlayer2 = $.querySelector(".player2");
+let spanPlayer1Current = $.querySelector(".player1 .player__score--number");
+let spanPlayer2Current = $.querySelector(".player2 .player__score--number");
+let spanPlayer1Total = $.querySelector(".player1 .player__total-score");
+let spanPlayer2Total = $.querySelector(".player2 .player__total-score");
 let player1 = {
   name: "player1",
   totalScore: 0,
@@ -33,25 +38,29 @@ function roll_dice() {
   diceImg.setAttribute("src", `./images/dice-${diceNum}.png`);
   if (diceNum == 1) {
     defaultPlayer.currentScore = 0;
+    zeroCurrentScore(defaultPlayer);
     changePlayer();
   } else {
     defaultPlayer.currentScore += diceNum;
   }
+  showCurrentScore(defaultPlayer);
 }
 
 function changePlayer() {
   if (defaultPlayer == player1) {
     defaultPlayer = player2;
-    cardPlayer1.style.backgroundColor = "var(--active-color)";
+    changeBgColor(cardPlayer2, cardPlayer1);
     return;
   }
-  cardPlayer2.style.backgroundColor = "var(--deactive-color)";
+  changeBgColor(cardPlayer1, cardPlayer2);
   defaultPlayer = player1;
 }
 
 function hold() {
   defaultPlayer.totalScore += defaultPlayer.currentScore;
   defaultPlayer.currentScore = 0;
+  sumTotalScore(defaultPlayer);
+  zeroCurrentScore(defaultPlayer);
   changePlayer();
 }
 
@@ -61,52 +70,38 @@ function newGame() {
   player1.totalScore = 0;
   player2.currentScore = 0;
   player2.totalScore = 0;
-  console.log(player1);
-  console.log(player2);
+  sumTotalScore(player1);
+  sumTotalScore(player2);
+  zeroCurrentScore(player1);
+  zeroCurrentScore(player2);
+  diceImg.classList.add("u-hidden");
 }
 
-/**.game_container{
- 
+function changeBgColor(activeCard, deactiveCard) {
+  activeCard.style.backgroundColor = "var(--active-color)";
+  deactiveCard.style.backgroundColor = "var(--deactive-color)";
 }
-.player{
-    
-}
-.player1{
-    
-}
-.player__name{
-    
-}
-.player__total-score{
-    
-}
-.player__current-score{
-    
-}
-.player__score--number{
 
+function zeroCurrentScore(player) {
+  if (player == player1) {
+    spanPlayer1Current.textContent = 0;
+  } else {
+    spanPlayer2Current.textContent = 0;
+  }
 }
-.player2{
 
+function sumTotalScore(player) {
+  if (player == player1) {
+    spanPlayer1Total.textContent = player1.totalScore;
+  } else {
+    spanPlayer2Total.textContent = player2.totalScore;
+  }
 }
-.buttons-container{
 
+function showCurrentScore(player) {
+  if (player == player1) {
+    spanPlayer1Current.textContent = player1.currentScore;
+    return;
+  }
+  spanPlayer2Current.textContent = player2.currentScore;
 }
-.btn{
-
-}
-.new-game-btn{
-
-}
-.dice-img{
-
-}
-.u-hidden{
-
-}
-.roll-btn{
-
-}
-.hold-btn{
-
-} */
